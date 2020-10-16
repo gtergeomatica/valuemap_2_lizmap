@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/plugins/valuemap_2_lizmap" >
+        <file>icon.png</file>
+    </qresource>
+</RCC>

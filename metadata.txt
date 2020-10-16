@@ -1,0 +1,47 @@
+# This file contains metadata for your plugin.
+
+# This file should be included when you package your plugin.# Mandatory items:
+
+[general]
+name=ValueMap to Lizmap
+qgisMinimumVersion=3.0
+description=This plugin creates a table layer with all the ValueMap items of the project to be used as input for a js script which shows description instead of code in Lizmap attribute tables
+version=0.1
+author=Gter srl
+email=assistenzagis@gter.it
+
+about=This plugin retrieves all codes and labels from columns with ValueMap widget and compiles a table layer added to the QGIS project. The table layer has three text columns named: fieldname, cod and label and it is automatically created and added to the QGIS project. This table is then used by the valueMap_in_attributeTable.js file in order to show descriptions instead of lables in Lizmap attribute tables. The resulting table layer must be added to lizmap web client. This python script also creates a txt file with the list of layers names with ValueMap widgets. This list can be used to add the layers name to the valueMap_in_attributeTable.js file. Moreover the script automatically put the valueMap_in_attributeTable.js in the proper folder i.e. media/js/project_name/. If these foldere do not exist, they are automatically created.
+
+tracker=http://bugs
+repository=http://repo
+# End of mandatory metadata
+
+# Recommended items:
+
+hasProcessingProvider=no
+# Uncomment the following line and add your changelog:
+# changelog=
+
+# Tags are comma separated with spaces allowed
+tags=attribute, attribute table, field, table, web, Lizmap, Value Map, widget
+
+homepage=http://homepage
+category=Web
+icon=icon.png
+# experimental flag
+experimental=True
+
+# deprecated flag (applies to the whole plugin, not just a single version)
+deprecated=False
+
+# Since QGIS 3.8, a comma separated list of plugins to be installed
+# (or upgraded) can be specified.
+# Check the documentation for more information.
+# plugin_dependencies=
+
+Category of the plugin: Raster, Vector, Database or Web
+# category=
+
+# If the plugin can run on QGIS Server.
+server=False
+
