@@ -34,6 +34,7 @@ import os.path
 import os
 import shutil
 from shutil import copyfile
+import webbrowser
 
 class ValueMap2Lizmap:
     """QGIS Plugin Implementation."""
@@ -234,7 +235,10 @@ class ValueMap2Lizmap:
             copyfile(path_plg_js, self.path_media_js)
             
     def openHelpButton(self):
-        webbrowser.open('https://manuale-cdu-creator.readthedocs.io/it/latest/')
+        if QgsSettings().value('locale/userLocale') == 'it':
+            webbrowser.open('https://github.com/gtergeomatica/valuemap_2_lizmap/wiki/Manuale')
+        else:
+            webbrowser.open('https://github.com/gtergeomatica/valuemap_2_lizmap/wiki/Manual')
             
     def closePlugin(self):
         """Cleanup necessary items here when plugin dockwidget is closed"""
