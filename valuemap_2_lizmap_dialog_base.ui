@@ -37,7 +37,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap>../../../AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/valuemap_2_lizmap/icon_smal.png</pixmap>
+          <pixmap>icon_smal.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>false</bool>
