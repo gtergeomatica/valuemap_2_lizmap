@@ -338,7 +338,7 @@ class ValueMap2Lizmap:
                         fjs.write(line)
                     fjs.close()
             else:
-                self.iface.messageBar().pushMessage("ATTENZIONE", "La tabella valuemap non è caricata nel progetto.", level=Qgis.Critical, duration=4)
+                self.iface.messageBar().pushMessage(self.tr("Error"), self.tr("The valuemap table is not loaded in the project."), level=Qgis.Critical, duration=4)
             print('FINISHED')
             self.endPlugin()
             
