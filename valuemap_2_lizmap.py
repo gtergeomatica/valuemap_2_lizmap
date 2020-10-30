@@ -308,18 +308,22 @@ class ValueMap2Lizmap:
                                 for dicts in lyr.editorWidgetSetup(idx).config().values():
                                     for d in dicts:
                                         for k, v in d.items():
-                                            lista.append([v, k, fieldname])
+                                            lista.append([fieldname, v, k])
 
                 #write values in the table excluding duplicated records
                 list_set = set(map(tuple,lista))
                 unique = list(map(list,list_set))
+                table_rows = []
+                for row in self.table.getFeatures():
+                    table_rows.append(row.attributes())
                 self.table.startEditing()
                 for u in unique:
-                    feat = QgsFeature(self.table.fields())
-                    feat.setAttribute(idxC, u[0])
-                    feat.setAttribute(idxD, u[1])
-                    feat.setAttribute(idxF, u[2])
-                    pr.addFeature(feat)
+                    if u not in table_rows:
+                        feat = QgsFeature(self.table.fields())
+                        feat.setAttribute(idxF, u[0])
+                        feat.setAttribute(idxC, u[1])
+                        feat.setAttribute(idxD, u[2])
+                        pr.addFeature(feat)
                 self.table.commitChanges()
 
                 #write layers names in the txt file
