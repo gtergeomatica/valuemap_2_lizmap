@@ -34,7 +34,8 @@ import os.path
 import os
 import shutil
 from shutil import copyfile
-import webbrowser
+import webbrowser
+
 
 class ValueMap2Lizmap:
     """QGIS Plugin Implementation."""
@@ -284,6 +285,8 @@ class ValueMap2Lizmap:
                 idxD = self.table.fields().indexOf('label')
                 #index of field containing the field name
                 idxF = self.table.fields().indexOf('fieldname')
+                #index of field containing the layer name
+                idxL = self.table.fields().indexOf('layer')
                 pr = self.table.dataProvider()
                 projectInstance = QgsProject.instance()
                 root = projectInstance.layerTreeRoot()
@@ -303,12 +306,15 @@ class ValueMap2Lizmap:
                         #iterate over all fields of the layer
                         for idx in lyr.fields().allAttributesList():
                             if lyr.editorWidgetSetup(idx).type() == 'ValueMap':
+                                layer = lyr.name()
                                 fieldname = lyr.fields().field(idx).name()
                                 #iterate over cod/label of valuemap widget
                                 for dicts in lyr.editorWidgetSetup(idx).config().values():
                                     for d in dicts:
                                         for k, v in d.items():
-                                            lista.append([fieldname, v, k])
+                                            lista.append([fieldname, v, k, layer])
+
+#####AGGIUNGERE PARTE SU NOME DEL LAYER IN TABELLA
 
                 #write values in the table excluding duplicated records
                 list_set = set(map(tuple,lista))
@@ -323,6 +329,7 @@ class ValueMap2Lizmap:
                         feat.setAttribute(idxF, u[0])
                         feat.setAttribute(idxC, u[1])
                         feat.setAttribute(idxD, u[2])
+                        feat.setAttribute(idxL, u[3])
                         pr.addFeature(feat)
                 self.table.commitChanges()
 
