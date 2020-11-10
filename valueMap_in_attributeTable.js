@@ -13,14 +13,8 @@ var translation_layer = 'valuemap';
 // In this layer
 // A field named "fieldname" with the corresponding field name with value map widget
 // A field named "cod" contains the code i.e the value which can be found in the field
-// Field named "label" contains the label corresponding to this code.
-// Example
-// fieldname        code        label
-// country           1         Paris 
-// country           2        Rome    
-// material          1        Métal 
-// ....
-
+// A field named "label" contains the label corresponding to this code.
+// A field named "layer" contains the layer name with the value map field.
 
 lizMap.events.on({
 
@@ -43,17 +37,13 @@ lizMap.events.on({
                var translated_label = 'label';
                if('fieldname' in data && translated_label in data ){
                   var fieldname = data['fieldname'];
-                  for(var i in layers_to_translate){
-                     var alayer = layers_to_translate[i];
                     // Fill in the dictionnary
-                    if(data[translated_label]){
-                        if( !(fieldname in translation_data[alayer]) ) {
-                           console.log('sonoqui')
-                           translation_data[alayer][fieldname] = {};
+                    if(data[translated_label] && layers_to_translate.includes(data['layer'])){
+                        if( !(fieldname in translation_data[data['layer']]) ) {
+                           translation_data[data['layer']][fieldname] = {};
                         }
-                        translation_data[alayer][fieldname][data['cod']] = data[translated_label];
+                        translation_data[data['layer']][fieldname][data['cod']] = data[translated_label];
                     }
-                  }
                }
             }
 
