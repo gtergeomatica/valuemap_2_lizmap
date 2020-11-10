@@ -37,7 +37,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap>./icon_smal.png</pixmap>
+          <pixmap>icon_smal.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -90,7 +90,7 @@ color:rgb(21, 151, 68)</string>
         <bool>false</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true">text-align : center;
+        <string notr="true">text-align : justify;
 </string>
        </property>
        <property name="text">
@@ -101,9 +101,9 @@ it is automatically created and added to the QGIS project.
 This table is then used by the valueMap_in_attributeTable.js
 file in order to show descriptions instead of lables in  Lizmap
 attribute tables.  The resulting table layer must be added  to
-lizmap web client.  Moreover the script automatically put the
-valueMap_in_attributeTable.js  in the  proper  folder.  If this
-folder does not exist, it is automatically created.</string>
+lizmap web client as WFS.  Moreover the script automatically
+put   the  valueMap_in_attributeTable.js   file  in  the  proper
+folder. If the folder does not exist, it is automatically created.</string>
        </property>
        <property name="textFormat">
         <enum>Qt::AutoText</enum>
