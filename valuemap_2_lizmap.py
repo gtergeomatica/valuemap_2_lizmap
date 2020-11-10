@@ -350,6 +350,7 @@ class ValueMap2Lizmap:
                         if line.startswith('var layers_to_translate ='):
                             #newline = line.replace('""', ',\n'.join(unique_name))
                             line = 'var layers_to_translate = {};\n'.format(unique_name)
+                            line = line.replace(',', ',\n')
                         fjs.write(line)
                     fjs.close()
             else:

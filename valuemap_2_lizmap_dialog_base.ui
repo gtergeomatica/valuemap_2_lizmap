@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>370</width>
+    <width>371</width>
     <height>310</height>
    </rect>
   </property>
@@ -37,10 +37,10 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap>icon_smal.png</pixmap>
+          <pixmap>./icon_smal.png</pixmap>
          </property>
          <property name="scaledContents">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
         </widget>
        </item>
