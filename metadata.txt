@@ -11,13 +11,12 @@ author=Roberta Fagandini (Gter srl) - Roberto Marzocchi (Gter srl)
 email=assistenzagis@gter.it
 
 about=This plugin retrieves all codes and labels from columns with ValueMap widget and compiles a table layer added to the QGIS project.
-	The table layer has three text columns named: fieldname, cod and label and it is automatically created and added to the QGIS project.
+	The table layer has four text columns named: fieldname, cod, label and layer and it is automatically created and added to the QGIS project.
 	This table is then used by the valueMap_in_attributeTable.js file in order to show descriptions instead of lables in Lizmap attribute tables.
-	The resulting table layer must be added to lizmap web client.
-	This python script also creates a txt file with the list of layers names with ValueMap widgets.
-	This list can be used to add the layers name to the valueMap_in_attributeTable.js file.
+	The resulting table layer must be added to lizmap web client as WFS layer.
 	Moreover the script automatically put the valueMap_in_attributeTable.js in the proper folder i.e. media/js/project_name/.
-	If these foldere do not exist, they are automatically created.
+	If these folders do not exist, they are automatically created.
+	The valueMap_in_attributeTable.js only works for fields of type text with Lizmap 3.3. Numerical fields will be supported starting from Lizmap 3.4.
 
 tracker=https://github.com/gtergeomatica/valuemap_2_lizmap/issues
 repository=https://github.com/gtergeomatica/valuemap_2_lizmap
