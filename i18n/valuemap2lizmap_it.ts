@@ -9,19 +9,54 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../valuemap_2_lizmap.py" line="177"/>
+        <location filename="../valuemap_2_lizmap.py" line="370"/>
         <source>ValueMap2Lizmap</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../valuemap_2_lizmap.py" line="362"/>
+        <location filename="../valuemap_2_lizmap.py" line="374"/>
         <source>Error</source>
         <translation>Errore</translation>
     </message>
     <message>
-        <location filename="../valuemap_2_lizmap.py" line="362"/>
+        <location filename="../valuemap_2_lizmap.py" line="374"/>
         <source>The valuemap table is not loaded in the project.</source>
         <translation>La tabella valuemap non è caricata nel progetto.</translation>
+    </message>
+    <message>
+        <location filename="../valuemap_2_lizmap.py" line="328"/>
+        <source>Warning</source>
+        <translation>Attenzione</translation>
+    </message>
+    <message>
+        <location filename="../valuemap_2_lizmap.py" line="328"/>
+        <source>The valuemap widget of field {} in layer {} is empty.</source>
+        <translation type="obsolete">Il widget Value Map del campo {} nel layer {} è vuoto.</translation>
+    </message>
+    <message>
+        <location filename="../valuemap_2_lizmap.py" line="370"/>
+        <source>The process is succesfully completed</source>
+        <translation>Il processo è terminato con successo</translation>
+    </message>
+    <message>
+        <location filename="../valuemap_2_lizmap.py" line="372"/>
+        <source>Info</source>
+        <translation>Info</translation>
+    </message>
+    <message>
+        <location filename="../valuemap_2_lizmap.py" line="372"/>
+        <source>No layer with valuemap widget found</source>
+        <translation type="obsolete">Non è stato trovato alcun layer con widget Value Map</translation>
+    </message>
+    <message>
+        <location filename="../valuemap_2_lizmap.py" line="328"/>
+        <source>The Value Map widget of field {} in layer {} is empty.</source>
+        <translation>Il widget Value Map del campo {} nel layer {} è vuoto.</translation>
+    </message>
+    <message>
+        <location filename="../valuemap_2_lizmap.py" line="372"/>
+        <source>No layer with Value Map widget found</source>
+        <translation>Non è stato trovato alcun layer con widget Value Map</translation>
     </message>
 </context>
 <context>
@@ -32,7 +67,7 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../valuemap_2_lizmap_dialog_base.ui" line="55"/>
+        <location filename="../valuemap_2_lizmap_dialog_base.ui" line="67"/>
         <source>ValueMap2Lizmap</source>
         <translation></translation>
     </message>
@@ -60,12 +95,12 @@ il file valueMap_in_attributeTable.js nella cartella appropriata
 Se questa cartella non esiste, viene automaticamente creata.</translation>
     </message>
     <message>
-        <location filename="../valuemap_2_lizmap_dialog_base.ui" line="140"/>
+        <location filename="../valuemap_2_lizmap_dialog_base.ui" line="143"/>
         <source>Help</source>
         <translation>Guida</translation>
     </message>
     <message>
-        <location filename="../valuemap_2_lizmap_dialog_base.ui" line="160"/>
+        <location filename="../valuemap_2_lizmap_dialog_base.ui" line="163"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
@@ -81,7 +116,7 @@ attribute tables.  The resulting table layer must be added  to
 lizmap web client as WFS.  Moreover the script automatically
 put   the  valueMap_in_attributeTable.js   file  in  the  proper
 folder. If the folder does not exist, it is automatically created.</source>
-        <translation>Il  plugin  recupera  tutti i codici  e le  descrizioni dalle colonne
+        <translation type="obsolete">Il  plugin  recupera  tutti i codici  e le  descrizioni dalle colonne
 con widget ValueMap e  compila  una tabella  composta da tre
 colonne  testuali  nominate :  fieldname, cod and label e viene
 automaticamente  creata  e  caricata  nel  progetto   QGIS.  La
@@ -91,6 +126,16 @@ attributi di Lizamp. La tabella deve essere aggiunta come WFS
 layer a lizmap web client.  Inoltre lo script  salva  direttamente
 il file valueMap_in_attributeTable.js  nella cartella  appropriata
 Se questa cartella non esiste, viene automaticamente creata.</translation>
+    </message>
+    <message>
+        <location filename="../valuemap_2_lizmap_dialog_base.ui" line="109"/>
+        <source>This plugin retrieves all codes and labels from columns with ValueMap widget and compiles a table layer. The table layer has three text columns named: fieldname, cod and label and it is automatically created and added to the QGIS project. This table is then used by the valueMap_in_attributeTable.js file in order to show descriptions instead of codes in Lizmap attribute tables. The resulting table layer must be added to lizmap web client as WFS. Moreover the script automatically puts the valueMap_in_attributeTable.js file in the proper folder. If the folder does not exist, it is automatically created.</source>
+        <translation type="obsolete">Il plugin recupera tutti i codici e le descrizioni dalle colonne con widget ValueMap e compila una tabella composta da tre colonne testuali nominate: fieldname, cod and label e viene automaticamente creata e caricata nel progetto QGIS. La tabella è poi utilizzata dal file valueMap_in_attributeTable.js per mostrare la descrizione invece del codice nelle tabelle attributi di Lizamp. La tabella deve essere aggiunta come layer WFS a lizmap web client. Inoltre lo script salva direttamente il file valueMap_in_attributeTable.js nella cartella appropriata. Se questa cartella non esiste, viene automaticamente creata.</translation>
+    </message>
+    <message>
+        <location filename="../valuemap_2_lizmap_dialog_base.ui" line="109"/>
+        <source>This plugin retrieves all codes and labels from columns with ValueMap widget and compiles a table layer. The table layer has four text columns named: fieldname, cod, label and layer and it is automatically created and added to the QGIS project. This table is then used by the valueMap_in_attributeTable.js file in order to show descriptions instead of codes in Lizmap attribute tables. The resulting table layer must be added to lizmap web client as WFS. Moreover the script automatically puts the valueMap_in_attributeTable.js file in the proper folder. If the folder does not exist, it is automatically created.</source>
+        <translation>Il plugin recupera tutti i codici e le descrizioni dalle colonne con widget ValueMap e compila una tabella composta da quattro colonne testuali nominate: fieldname, cod, label e layer e viene automaticamente creata e caricata nel progetto QGIS. La tabella è poi utilizzata dal file valueMap_in_attributeTable.js per mostrare la descrizione invece del codice nelle tabelle attributi di Lizamp. La tabella deve essere aggiunta come layer WFS a lizmap web client. Inoltre lo script salva direttamente il file valueMap_in_attributeTable.js nella cartella appropriata. Se questa cartella non esiste, viene automaticamente creata.</translation>
     </message>
 </context>
 </TS>

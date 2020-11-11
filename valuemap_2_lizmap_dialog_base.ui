@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>371</width>
+    <width>373</width>
     <height>310</height>
    </rect>
   </property>
@@ -33,11 +33,23 @@
        </item>
        <item>
         <widget class="QLabel" name="label">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>51</width>
+           <height>51</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
          <property name="text">
           <string/>
-         </property>
-         <property name="pixmap">
-          <pixmap>icon_smal.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -94,16 +106,7 @@ color:rgb(21, 151, 68)</string>
 </string>
        </property>
        <property name="text">
-        <string>This plugin retrieves all codes and labels from  columns with
-ValueMap widget and compiles a table layer. The table layer
-has three text columns named: fieldname, cod and label and
-it is automatically created and added to the QGIS project.
-This table is then used by the valueMap_in_attributeTable.js
-file in order to show descriptions instead of lables in  Lizmap
-attribute tables.  The resulting table layer must be added  to
-lizmap web client as WFS.  Moreover the script automatically
-put   the  valueMap_in_attributeTable.js   file  in  the  proper
-folder. If the folder does not exist, it is automatically created.</string>
+        <string>This plugin retrieves all codes and labels from columns with ValueMap widget and compiles a table layer. The table layer has four text columns named: fieldname, cod, label and layer and it is automatically created and added to the QGIS project. This table is then used by the valueMap_in_attributeTable.js file in order to show descriptions instead of codes in Lizmap attribute tables. The resulting table layer must be added to lizmap web client as WFS. Moreover the script automatically puts the valueMap_in_attributeTable.js file in the proper folder. If the folder does not exist, it is automatically created.</string>
        </property>
        <property name="textFormat">
         <enum>Qt::AutoText</enum>
@@ -115,7 +118,7 @@ folder. If the folder does not exist, it is automatically created.</string>
         <set>Qt::AlignJustify|Qt::AlignVCenter</set>
        </property>
        <property name="wordWrap">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
      </item>

@@ -22,7 +22,7 @@
  ***************************************************************************/
 """
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
-from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtGui import QIcon, QPixmap
 from qgis.PyQt.QtWidgets import QAction
 from qgis.core import *
 
@@ -190,12 +190,14 @@ class ValueMap2Lizmap:
             self.iface.removeToolBarIcon(action)
             
     def pressIcon(self):
-        print(self.pluginIsActive)
+        #print(self.pluginIsActive)
         if not self.pluginIsActive:
             #print(self.data)
             self.pluginIsActive = True
             self.dlg = ValueMap2LizmapDialog()
             
+            mypix = QPixmap(':/plugins/valuemap_2_lizmap/icon_smal.png')
+            self.dlg.label.setPixmap(mypix)
             self.dlg.helpButton.clicked.connect(self.openHelpButton)
             self.dlg.pushButtonOk.clicked.connect(self.run)
             self.dlg.rejected.connect(self.closePlugin)
@@ -293,16 +295,17 @@ class ValueMap2Lizmap:
                 lista = []
                 layernames = []
                 #the txt file in which the name of layers with valuemap widgets will be stored
-                txt_file = os.path.join('{}/media'.format(self.proj_dir),'layer.txt')
+                #txt_file = os.path.join('{}/media'.format(self.proj_dir),'layer.txt')
+                #check_vm = 0
 
                 for child in root.findLayers():
                     #check if layer is vector with geom
                     if isinstance(child.layer(), QgsVectorLayer) and child.layer().geometryType() != 4:
                         lyr = child.layer()
                         #get the name of layer with valuemap widgets
-                        for f in lyr.fields():
-                            if f.editorWidgetSetup().type() == 'ValueMap':
-                                layernames.append(lyr.name())
+                        # for f in lyr.fields():
+                            # if f.editorWidgetSetup().type() == 'ValueMap':
+                                # layernames.append(lyr.name())
                         #iterate over all fields of the layer
                         for idx in lyr.fields().allAttributesList():
                             if lyr.editorWidgetSetup(idx).type() == 'ValueMap':
@@ -310,49 +313,57 @@ class ValueMap2Lizmap:
                                 fieldname = lyr.fields().field(idx).name()
                                 #iterate over cod/label of valuemap widget
                                 for dicts in lyr.editorWidgetSetup(idx).config().values():
-                                    for d in dicts:
-                                        for k, v in d.items():
-                                            lista.append([fieldname, v, k, layer])
+                                    if dicts:
+                                        layernames.append(lyr.name())
+                                        for d in dicts:
+                                            for k, v in d.items():
+                                                lista.append([fieldname, v, k, layer])
+                                    else:
+                                        self.iface.messageBar().pushMessage(self.tr("Warning"), self.tr("The Value Map widget of field {} in layer {} is empty.".format(fieldname, layer)), level=Qgis.Warning, duration=4)
+                                #check_vm += 1
+                if lista:
+                    #self.iface.messageBar().pushMessage(self.tr("Info"), self.tr("No layer with valuemap widget"), level=Qgis.Info, duration=4)
+                    #self.endPlugin()
 
-#####AGGIUNGERE PARTE SU NOME DEL LAYER IN TABELLA
+                    #write values in the table excluding duplicated records
+                    list_set = set(map(tuple,lista))
+                    unique = list(map(list,list_set))
+                    table_rows = []
+                    for row in self.table.getFeatures():
+                        table_rows.append(row.attributes())
+                    self.table.startEditing()
+                    for u in unique:
+                        if u not in table_rows:
+                            feat = QgsFeature(self.table.fields())
+                            feat.setAttribute(idxF, u[0])
+                            feat.setAttribute(idxC, u[1])
+                            feat.setAttribute(idxD, u[2])
+                            feat.setAttribute(idxL, u[3])
+                            pr.addFeature(feat)
+                    self.table.commitChanges()
 
-                #write values in the table excluding duplicated records
-                list_set = set(map(tuple,lista))
-                unique = list(map(list,list_set))
-                table_rows = []
-                for row in self.table.getFeatures():
-                    table_rows.append(row.attributes())
-                self.table.startEditing()
-                for u in unique:
-                    if u not in table_rows:
-                        feat = QgsFeature(self.table.fields())
-                        feat.setAttribute(idxF, u[0])
-                        feat.setAttribute(idxC, u[1])
-                        feat.setAttribute(idxD, u[2])
-                        feat.setAttribute(idxL, u[3])
-                        pr.addFeature(feat)
-                self.table.commitChanges()
+                    #write layers names in the txt file
+                    name_set = set(layernames)
+                    unique_name = list(name_set)
+                    # with open(txt_file, "w") as file:
+                        # for un in unique_name:
+                            # file.write('\'' + un + '\'' + ',\n')
+                    # file.close()
+                    
+                    with open(self.path_media_js,'r') as fjs:
+                        lines = fjs.readlines()
 
-                #write layers names in the txt file
-                name_set = set(layernames)
-                unique_name = list(name_set)
-                with open(txt_file, "w") as file:
-                    for un in unique_name:
-                        file.write('\'' + un + '\'' + ',\n')
-                file.close()
-                
-                with open(self.path_media_js,'r') as fjs:
-                    lines = fjs.readlines()
-
-                with open(self.path_media_js,'w') as fjs:
-                    for line in lines:
-                        #print(line)
-                        if line.startswith('var layers_to_translate ='):
-                            #newline = line.replace('""', ',\n'.join(unique_name))
-                            line = 'var layers_to_translate = {};\n'.format(unique_name)
-                            line = line.replace(',', ',\n')
-                        fjs.write(line)
-                    fjs.close()
+                    with open(self.path_media_js,'w') as fjs:
+                        for line in lines:
+                            #print(line)
+                            if line.startswith('var layers_to_translate ='):
+                                #newline = line.replace('""', ',\n'.join(unique_name))
+                                line = 'var layers_to_translate = {};\n'.format(unique_name)
+                            fjs.write(line)
+                        fjs.close()
+                    self.iface.messageBar().pushMessage(self.tr("ValueMap2Lizmap"), self.tr("The process is succesfully completed"), level=Qgis.Success, duration=2)
+                else:
+                    self.iface.messageBar().pushMessage(self.tr("Info"), self.tr("No layer with Value Map widget found"), level=Qgis.Info, duration=4)
             else:
                 self.iface.messageBar().pushMessage(self.tr("Error"), self.tr("The valuemap table is not loaded in the project."), level=Qgis.Critical, duration=4)
             print('FINISHED')
