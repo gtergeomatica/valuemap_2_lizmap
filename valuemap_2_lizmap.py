@@ -169,7 +169,6 @@ class ValueMap2Lizmap:
 
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
-
         icon_path = ':/plugins/valuemap_2_lizmap/icon.png'
         self.add_action(
             icon_path,
@@ -191,26 +190,31 @@ class ValueMap2Lizmap:
             
     def pressIcon(self):
         #print(self.pluginIsActive)
-        if not self.pluginIsActive:
-            #print(self.data)
-            self.pluginIsActive = True
-            self.dlg = ValueMap2LizmapDialog()
-            
-            mypix = QPixmap(':/plugins/valuemap_2_lizmap/icon_smal.png')
-            self.dlg.label.setPixmap(mypix)
-            self.dlg.helpButton.clicked.connect(self.openHelpButton)
-            self.dlg.pushButtonOk.clicked.connect(self.run)
-            self.dlg.rejected.connect(self.closePlugin)
-            
-            self.prepRun()
-            self.dlg.show()
+        if QgsProject.instance().homePath():
+            if not self.pluginIsActive:
+                #print(self.data)
+                self.pluginIsActive = True
+                self.dlg = ValueMap2LizmapDialog()
+                
+                mypix = QPixmap(':/plugins/valuemap_2_lizmap/icon_smal.png')
+                self.dlg.label.setPixmap(mypix)
+                self.dlg.helpButton.clicked.connect(self.openHelpButton)
+                self.dlg.pushButtonOk.clicked.connect(self.run)
+                self.dlg.rejected.connect(self.closePlugin)
+                
+                self.prepRun()
+                self.dlg.show()
+            else:
+                self.dlg.show()
+                self.dlg.activateWindow()
         else:
-            self.dlg.show()
-            self.dlg.activateWindow()
+            self.iface.messageBar().pushMessage(self.tr("Error"), self.tr("The project must be saved before running the plugin."), level=Qgis.Critical, duration=4)
             
     def prepRun(self):
         self.proj_dir = QgsProject.instance().homePath()
         proj_name = QgsProject.instance().fileName().split('/')[-1].split('.')[0]
+        if not os.path.exists('{}.cfg'.format(QgsProject.instance().fileName())):
+            self.iface.messageBar().pushMessage(self.tr("Warning"), self.tr("The Lizmap configuration file does not exist. Run Lizmap plugin to publish the project"), level=Qgis.Warning, duration=4)
         if not os.path.exists('{}/media'.format(self.proj_dir)):
             os.makedirs('{}/media/js/{}'.format(self.proj_dir, proj_name))
         else:
@@ -236,7 +240,7 @@ class ValueMap2Lizmap:
         self.path_media_js = os.path.join('{}/media/js/{}'.format(self.proj_dir, proj_name), 'valueMap_in_attributeTable.js')
         if not os.path.isfile(self.path_media_js):
             copyfile(path_plg_js, self.path_media_js)
-            
+
     def openHelpButton(self):
         if QgsSettings().value('locale/userLocale') == 'it':
             webbrowser.open('https://github.com/gtergeomatica/valuemap_2_lizmap/wiki/Manuale')
@@ -246,7 +250,7 @@ class ValueMap2Lizmap:
     def closePlugin(self):
         """Cleanup necessary items here when plugin dockwidget is closed"""
 
-        print("** CLOSING Plugin")
+        print("** CLOSING Plugin **")
         self.dlg.pushButtonOk.clicked.disconnect(self.run)
         self.dlg.rejected.disconnect(self.closePlugin)
         self.dlg.helpButton.clicked.disconnect(self.openHelpButton)

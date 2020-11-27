@@ -6,8 +6,8 @@
 name=ValueMap to Lizmap
 qgisMinimumVersion=3.0
 description=This plugin creates a table layer with all the ValueMap items of the project to be used as input for a js script which shows description instead of code in Lizmap attribute tables
-version=0.1
-author=Roberta Fagandini (Gter srl) - Roberto Marzocchi (Gter srl)
+version=0.2
+author=Roberta Fagandini (Gter srl) - Roberto Marzocchi (Gter srl) - Rossella Ambrosino (Gter srl)
 email=assistenzagis@gter.it
 
 about=This plugin retrieves all codes and labels from columns with ValueMap widget and compiles a table layer added to the QGIS project.
@@ -27,6 +27,9 @@ repository=https://github.com/gtergeomatica/valuemap_2_lizmap
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
 changelog=
+	0.2
+        * Added control check on project file
+        * Added control check on Lizmap cfg file
 	0.1
         * First public release 
 

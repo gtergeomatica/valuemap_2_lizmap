@@ -4,27 +4,27 @@
 <context>
     <name>ValueMap2Lizmap</name>
     <message>
-        <location filename="../valuemap_2_lizmap.py" line="190"/>
+        <location filename="../valuemap_2_lizmap.py" line="189"/>
         <source>&amp;ValueMap to Lizmap</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../valuemap_2_lizmap.py" line="370"/>
+        <location filename="../valuemap_2_lizmap.py" line="374"/>
         <source>ValueMap2Lizmap</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../valuemap_2_lizmap.py" line="374"/>
+        <location filename="../valuemap_2_lizmap.py" line="378"/>
         <source>Error</source>
         <translation>Errore</translation>
     </message>
     <message>
-        <location filename="../valuemap_2_lizmap.py" line="374"/>
+        <location filename="../valuemap_2_lizmap.py" line="378"/>
         <source>The valuemap table is not loaded in the project.</source>
         <translation>La tabella valuemap non è caricata nel progetto.</translation>
     </message>
     <message>
-        <location filename="../valuemap_2_lizmap.py" line="328"/>
+        <location filename="../valuemap_2_lizmap.py" line="332"/>
         <source>Warning</source>
         <translation>Attenzione</translation>
     </message>
@@ -34,12 +34,12 @@
         <translation type="obsolete">Il widget Value Map del campo {} nel layer {} è vuoto.</translation>
     </message>
     <message>
-        <location filename="../valuemap_2_lizmap.py" line="370"/>
+        <location filename="../valuemap_2_lizmap.py" line="374"/>
         <source>The process is succesfully completed</source>
         <translation>Il processo è terminato con successo</translation>
     </message>
     <message>
-        <location filename="../valuemap_2_lizmap.py" line="372"/>
+        <location filename="../valuemap_2_lizmap.py" line="376"/>
         <source>Info</source>
         <translation>Info</translation>
     </message>
@@ -49,14 +49,24 @@
         <translation type="obsolete">Non è stato trovato alcun layer con widget Value Map</translation>
     </message>
     <message>
-        <location filename="../valuemap_2_lizmap.py" line="328"/>
+        <location filename="../valuemap_2_lizmap.py" line="332"/>
         <source>The Value Map widget of field {} in layer {} is empty.</source>
         <translation>Il widget Value Map del campo {} nel layer {} è vuoto.</translation>
     </message>
     <message>
-        <location filename="../valuemap_2_lizmap.py" line="372"/>
+        <location filename="../valuemap_2_lizmap.py" line="376"/>
         <source>No layer with Value Map widget found</source>
         <translation>Non è stato trovato alcun layer con widget Value Map</translation>
+    </message>
+    <message>
+        <location filename="../valuemap_2_lizmap.py" line="214"/>
+        <source>The project must be saved before running the plugin.</source>
+        <translation>Il progetto deve essere salvato prima di utilizzare il plugin.</translation>
+    </message>
+    <message>
+        <location filename="../valuemap_2_lizmap.py" line="220"/>
+        <source>The Lizmap configuration file does not exist. Run Lizmap plugin to publish the project</source>
+        <translation>Il file di configurazione Lizmap non esiste. Lanciare il plugin Lizmap per pubblicare il progetto</translation>
     </message>
 </context>
 <context>
