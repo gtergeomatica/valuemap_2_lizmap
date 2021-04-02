@@ -210,6 +210,7 @@ class ValueMap2Lizmap:
         else:
             self.iface.messageBar().pushMessage(self.tr("Error"), self.tr("The project must be saved before running the plugin."), level=Qgis.Critical, duration=4)
             
+    
     def prepRun(self):
         self.proj_dir = QgsProject.instance().homePath()
         proj_name = QgsProject.instance().fileName().split('/')[-1].split('.')[0]
@@ -224,17 +225,24 @@ class ValueMap2Lizmap:
                 if not os.path.exists('{}/media/js/{}'.format(self.proj_dir, proj_name)):
                     os.makedirs('{}/media/js/{}'.format(self.proj_dir, proj_name))
 
+        # if a layer with this name exists I remove it
         if QgsProject.instance().mapLayersByName('valuemap'):
-            self.table = QgsProject.instance().mapLayersByName('valuemap')[0]
+            QgsProject.instance().removeMapLayer(QgsProject.instance().mapLayersByName('valuemap')[0].id())
+            #self.table = QgsProject.instance().mapLayersByName('valuemap')[0]
+        #else:
+            # Add the empty DBF
+        path_plg_dbf = os.path.join(self.plugin_dir, 'valuemap.dbf')
+        path_media_dbf = os.path.join('{}/media/js/{}'.format(self.proj_dir, proj_name), 'valuemap.dbf')
+        if not os.path.isfile(path_media_dbf):
+            copyfile(path_plg_dbf, path_media_dbf)
         else:
-            path_plg_dbf = os.path.join(self.plugin_dir, 'valuemap.dbf')
-            path_media_dbf = os.path.join('{}/media'.format(self.proj_dir), 'valuemap.dbf')
-            if not os.path.isfile(path_media_dbf):
-                copyfile(path_plg_dbf, path_media_dbf)
-            #print(path)
-            lyr_table = QgsVectorLayer(path_media_dbf, 'valuemap')
-            QgsProject.instance().addMapLayers([lyr_table])
-            self.table = QgsProject.instance().mapLayersByName('valuemap')[0]
+            path2_plg_dbf = os.path.join(self.plugin_dir, 'valuemap2.dbf')
+            copyfile(path_plg_dbf, path2_plg_dbf)
+            shutil.move(path2_plg_dbf, path_media_dbf) #overwrite
+        #print(path)
+        lyr_table = QgsVectorLayer(path_media_dbf, 'valuemap')
+        QgsProject.instance().addMapLayers([lyr_table])
+        self.table = QgsProject.instance().mapLayersByName('valuemap')[0]
             
         path_plg_js = os.path.join(self.plugin_dir, 'valueMap_in_attributeTable.js')
         self.path_media_js = os.path.join('{}/media/js/{}'.format(self.proj_dir, proj_name), 'valueMap_in_attributeTable.js')
@@ -301,10 +309,8 @@ class ValueMap2Lizmap:
                 #the txt file in which the name of layers with valuemap widgets will be stored
                 #txt_file = os.path.join('{}/media'.format(self.proj_dir),'layer.txt')
                 #check_vm = 0
-
                 for child in root.findLayers():
-                    #check if layer is vector with geom
-                    if isinstance(child.layer(), QgsVectorLayer) and child.layer().geometryType() != 4:
+                    if isinstance(child.layer(), QgsVectorLayer) and  child.layer().name() not in ['valuemap']: 
                         lyr = child.layer()
                         #get the name of layer with valuemap widgets
                         # for f in lyr.fields():
@@ -312,6 +318,7 @@ class ValueMap2Lizmap:
                                 # layernames.append(lyr.name())
                         #iterate over all fields of the layer
                         for idx in lyr.fields().allAttributesList():
+                            # check for ValueMap
                             if lyr.editorWidgetSetup(idx).type() == 'ValueMap':
                                 layer = lyr.name()
                                 fieldname = lyr.fields().field(idx).name()
@@ -325,6 +332,50 @@ class ValueMap2Lizmap:
                                     else:
                                         self.iface.messageBar().pushMessage(self.tr("Warning"), self.tr("The Value Map widget of field {} in layer {} is empty.".format(fieldname, layer)), level=Qgis.Warning, duration=4)
                                 #check_vm += 1
+                                
+                            # check for ValueRelation
+                            if lyr.editorWidgetSetup(idx).type() == 'ValueRelation':
+                                layer = lyr.name()
+                                fieldname = lyr.fields().field(idx).name()
+                                #print(layer,  fieldname)
+                                #print(lyr.editorWidgetSetup(idx).config())
+                                target_layer0 = lyr.editorWidgetSetup(idx).config()["Layer"]
+                                #print(target_layer0)
+                                # this is the case of duplicate layer
+                                try: 
+                                    target_layer = lyr.editorWidgetSetup(idx).config()["LayerName"]
+                                except:
+                                    for lll in root.findLayers():
+                                        if isinstance(lll.layer(), QgsVectorLayer):
+                                            #print(lll.layer().id())
+                                            #print(lll.layer().name())
+                                            if lll.layer().id() == target_layer0:
+                                                try: 
+                                                    target_layer=lll.layer().name()
+                                                except: 
+                                                    print('Layer duplicato. Nessun problema')
+                                    #target_layer = lyr.editorWidgetSetup(idx).config()["LayerName"]
+                                target_key = lyr.editorWidgetSetup(idx).config()["Key"]
+                                target_value = lyr.editorWidgetSetup(idx).config()["Value"]
+                                #print(lyr.editorWidgetSetup(idx).config())
+                                #print(target_layer)
+                                
+                                targetlayer = QgsProject.instance().mapLayersByName(target_layer)[0]
+                                #print(targetlayer)
+                                features = targetlayer.getFeatures()
+                                # this try is due to embedded layer where ValueRelation is missing
+                                try:
+                                    for feat in features:
+                                        k = feat[target_key]
+                                        v = feat[target_value]
+                                        # print(fieldname, v, k, layer)
+                                        lista.append([fieldname, v, k, layer])
+                                except:
+                                    self.iface.messageBar().pushMessage(self.tr("Warning"), 
+                                                                        self.tr('''Problem with Relation Value widget of field {} in layer {}.
+                                                                                Perhaps the layer is embedded.'''.format(fieldname, layer)),
+                                                                        level=Qgis.Warning, duration=15)
+                    
                 if lista:
                     #self.iface.messageBar().pushMessage(self.tr("Info"), self.tr("No layer with valuemap widget"), level=Qgis.Info, duration=4)
                     #self.endPlugin()
@@ -370,6 +421,17 @@ class ValueMap2Lizmap:
                     self.iface.messageBar().pushMessage(self.tr("Info"), self.tr("No layer with Value Map widget found"), level=Qgis.Info, duration=4)
             else:
                 self.iface.messageBar().pushMessage(self.tr("Error"), self.tr("The valuemap table is not loaded in the project."), level=Qgis.Critical, duration=4)
+            
+            # encoding UTF8
+            projectInstance = QgsProject.instance()
+            root = projectInstance.layerTreeRoot()
+            for child in root.findLayers():
+                if isinstance(child.layer(), QgsVectorLayer) and child.layer().name() in ['valuemap']: #and child.layer().geometryType() != 4:
+                    lyr = child.layer()
+                    layer = lyr.name()
+                    print(layer)
+                    lyr.setProviderEncoding(u'UTF-8')
+                    lyr.dataProvider().setEncoding(u'UTF-8')
             print('FINISHED')
             self.endPlugin()
             
