@@ -397,6 +397,24 @@ class ValueMap2Lizmap:
                             pr.addFeature(feat)
                     self.table.commitChanges()
 
+                    #rende il layer valuemap pubblicato come wfs
+                    vectorLayers = {layer.id(): layer.name() for layer in QgsProject.instance().mapLayers().values() if isinstance(layer, QgsVectorLayer)}
+                    #print(vectorLayers)
+                    wfsLayersConfig = [
+                        {
+                            "name": "valuemap",
+                            "published": True,
+                            "precision": 8,
+                            "Update": False,
+                            "Insert": False,
+                            "Delete": False
+                        }
+                    ]
+                    vectorLayersKeyValReversed = {v: k for k, v in vectorLayers.items()}
+                    #print(vectorLayersKeyValReversed)
+                    QgsProject.instance().writeEntry( "WFSLayers" , "/", [vectorLayersKeyValReversed[l['name']] for l in wfsLayersConfig if l["published"] == True])
+                    QgsProject.instance().write()
+
                     #write layers names in the txt file
                     name_set = set(layernames)
                     unique_name = list(name_set)
