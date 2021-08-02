@@ -1,60 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="it" sourcelanguage="en">
+<!DOCTYPE TS><TS version="2.0" language="it" sourcelanguage="en">
 <context>
     <name>ValueMap2Lizmap</name>
     <message>
         <location filename="../valuemap_2_lizmap.py" line="189"/>
         <source>&amp;ValueMap to Lizmap</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../valuemap_2_lizmap.py" line="374"/>
+        <location filename="../valuemap_2_lizmap.py" line="452"/>
         <source>ValueMap2Lizmap</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../valuemap_2_lizmap.py" line="378"/>
+        <location filename="../valuemap_2_lizmap.py" line="456"/>
         <source>Error</source>
         <translation>Errore</translation>
     </message>
     <message>
-        <location filename="../valuemap_2_lizmap.py" line="378"/>
+        <location filename="../valuemap_2_lizmap.py" line="456"/>
         <source>The valuemap table is not loaded in the project.</source>
         <translation>La tabella valuemap non è caricata nel progetto.</translation>
     </message>
     <message>
-        <location filename="../valuemap_2_lizmap.py" line="332"/>
+        <location filename="../valuemap_2_lizmap.py" line="380"/>
         <source>Warning</source>
         <translation>Attenzione</translation>
     </message>
     <message>
-        <location filename="../valuemap_2_lizmap.py" line="328"/>
-        <source>The valuemap widget of field {} in layer {} is empty.</source>
-        <translation type="obsolete">Il widget Value Map del campo {} nel layer {} è vuoto.</translation>
-    </message>
-    <message>
-        <location filename="../valuemap_2_lizmap.py" line="374"/>
+        <location filename="../valuemap_2_lizmap.py" line="452"/>
         <source>The process is succesfully completed</source>
         <translation>Il processo è terminato con successo</translation>
     </message>
     <message>
-        <location filename="../valuemap_2_lizmap.py" line="376"/>
+        <location filename="../valuemap_2_lizmap.py" line="454"/>
         <source>Info</source>
         <translation>Info</translation>
     </message>
     <message>
-        <location filename="../valuemap_2_lizmap.py" line="372"/>
-        <source>No layer with valuemap widget found</source>
-        <translation type="obsolete">Non è stato trovato alcun layer con widget Value Map</translation>
-    </message>
-    <message>
-        <location filename="../valuemap_2_lizmap.py" line="332"/>
+        <location filename="../valuemap_2_lizmap.py" line="339"/>
         <source>The Value Map widget of field {} in layer {} is empty.</source>
         <translation>Il widget Value Map del campo {} nel layer {} è vuoto.</translation>
     </message>
     <message>
-        <location filename="../valuemap_2_lizmap.py" line="376"/>
+        <location filename="../valuemap_2_lizmap.py" line="454"/>
         <source>No layer with Value Map widget found</source>
         <translation>Non è stato trovato alcun layer con widget Value Map</translation>
     </message>
@@ -64,9 +53,24 @@
         <translation>Il progetto deve essere salvato prima di utilizzare il plugin.</translation>
     </message>
     <message>
-        <location filename="../valuemap_2_lizmap.py" line="220"/>
+        <location filename="../valuemap_2_lizmap.py" line="221"/>
         <source>The Lizmap configuration file does not exist. Run Lizmap plugin to publish the project</source>
         <translation>Il file di configurazione Lizmap non esiste. Lanciare il plugin Lizmap per pubblicare il progetto</translation>
+    </message>
+    <message>
+        <location filename="../valuemap_2_lizmap.py" line="380"/>
+        <source>Problem with Relation Value widget of field {} in layer {}. Perhaps the layer is embedded.</source>
+        <translation>Problemi con il widget Relation Value del campo {} nel layerr {}. Forse il layer è embedded.</translation>
+    </message>
+    <message>
+        <location filename="../valuemap_2_lizmap.py" line="340"/>
+        <source>The Value Map widget is empty.</source>
+        <translation type="obsolete">Il widget Value Map è vuoto.</translation>
+    </message>
+    <message>
+        <location filename="../valuemap_2_lizmap.py" line="340"/>
+        <source>The Value Map widget of field {} is empty.</source>
+        <translation type="obsolete">Il widget Value Map del campo {} è vuoto.</translation>
     </message>
 </context>
 <context>

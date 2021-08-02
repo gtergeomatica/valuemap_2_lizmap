@@ -371,10 +371,7 @@ class ValueMap2Lizmap:
                                         # print(fieldname, v, k, layer)
                                         lista.append([fieldname, v, k, layer])
                                 except:
-                                    self.iface.messageBar().pushMessage(self.tr("Warning"), 
-                                                                        self.tr('''Problem with Relation Value widget of field {} in layer {}.
-                                                                                Perhaps the layer is embedded.'''.format(fieldname, layer)),
-                                                                        level=Qgis.Warning, duration=15)
+                                    self.iface.messageBar().pushMessage(self.tr("Warning"), self.tr("Problem with Relation Value widget of field {} in layer {}. Perhaps the layer is embedded.".format(fieldname, layer)), level=Qgis.Warning, duration=15)
                     
                 if lista:
                     #self.iface.messageBar().pushMessage(self.tr("Info"), self.tr("No layer with valuemap widget"), level=Qgis.Info, duration=4)
@@ -399,19 +396,31 @@ class ValueMap2Lizmap:
 
                     #rende il layer valuemap pubblicato come wfs
                     vectorLayers = {layer.id(): layer.name() for layer in QgsProject.instance().mapLayers().values() if isinstance(layer, QgsVectorLayer)}
-                    #print(vectorLayers)
-                    wfsLayersConfig = [
-                        {
-                            "name": "valuemap",
+                    print(vectorLayers)
+                    wfs_layers = QgsProject.instance().readListEntry( "WFSLayers", "/")[0]
+                    print(wfs_layers)
+                    for x in wfs_layers:
+                        if x.startswith('valuemap'):
+                            wfs_layers.remove(x)
+                    #print(self.table.id())
+                    #print(self.table.name())
+                    wfs_layers.append(self.table.id())
+                    print(wfs_layers)
+                    wfsLayersConfig = []
+                    for w in wfs_layers:
+                        #print(vectorLayers[w])
+                        wfsLayersConfig.append({
+                            "name": vectorLayers[w],
                             "published": True,
                             "precision": 8,
                             "Update": False,
                             "Insert": False,
                             "Delete": False
-                        }
-                    ]
+                        })
+                    print(wfsLayersConfig)
+
                     vectorLayersKeyValReversed = {v: k for k, v in vectorLayers.items()}
-                    #print(vectorLayersKeyValReversed)
+                    # print(vectorLayersKeyValReversed)
                     QgsProject.instance().writeEntry( "WFSLayers" , "/", [vectorLayersKeyValReversed[l['name']] for l in wfsLayersConfig if l["published"] == True])
                     QgsProject.instance().write()
 
@@ -447,7 +456,7 @@ class ValueMap2Lizmap:
                 if isinstance(child.layer(), QgsVectorLayer) and child.layer().name() in ['valuemap']: #and child.layer().geometryType() != 4:
                     lyr = child.layer()
                     layer = lyr.name()
-                    print(layer)
+                    #print(layer)
                     lyr.setProviderEncoding(u'UTF-8')
                     lyr.dataProvider().setEncoding(u'UTF-8')
             print('FINISHED')
