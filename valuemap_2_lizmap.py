@@ -358,7 +358,8 @@ class ValueMap2Lizmap:
                                 target_key = lyr.editorWidgetSetup(idx).config()["Key"]
                                 target_value = lyr.editorWidgetSetup(idx).config()["Value"]
                                 #print(lyr.editorWidgetSetup(idx).config())
-                                #print(target_layer)
+                                #print('this is the key: {}'.format(target_key))
+                                #print('this is the value: {}'.format(target_value))
                                 
                                 targetlayer = QgsProject.instance().mapLayersByName(target_layer)[0]
                                 #print(targetlayer)
@@ -369,7 +370,7 @@ class ValueMap2Lizmap:
                                         k = feat[target_key]
                                         v = feat[target_value]
                                         # print(fieldname, v, k, layer)
-                                        lista.append([fieldname, v, k, layer])
+                                        lista.append([fieldname, k, v, layer])
                                 except:
                                     self.iface.messageBar().pushMessage(self.tr("Warning"), self.tr("Problem with Relation Value widget of field {} in layer {}. Perhaps the layer is embedded.".format(fieldname, layer)), level=Qgis.Warning, duration=15)
                     
